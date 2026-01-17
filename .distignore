@@ -1,0 +1,45 @@
+# Distribution ignore file
+# Files and folders to exclude from the plugin zip
+
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# Development files
+.distignore
+ROADMAP.md
+.editorconfig
+.eslintrc
+.stylelintrc
+phpcs.xml
+phpunit.xml
+composer.json
+composer.lock
+package.json
+package-lock.json
+node_modules
+vendor
+
+# Build/CI
+.github
+.travis.yml
+.circleci
+Gruntfile.js
+Gulpfile.js
+webpack.config.js
+
+# IDE
+.idea
+.vscode
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test files
+tests
+bin
+phpunit.xml.dist

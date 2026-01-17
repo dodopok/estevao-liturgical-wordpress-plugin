@@ -1,0 +1,31 @@
+# Distribution
+dist/
+
+# Dependencies
+node_modules/
+vendor/
+
+# IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+debug.log
+
+# Environment
+.env
+.env.local
+
+# Build artifacts
+*.zip
+
+# Temporary files
+*.tmp
+*.temp

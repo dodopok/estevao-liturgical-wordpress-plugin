@@ -4,7 +4,7 @@ Tags: liturgical, calendar, anglican, church, liturgy, readings
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -143,6 +143,10 @@ Sim! O plugin inclui CSS básico com classes bem definidas. Você pode sobrescre
 
 == Changelog ==
 
+= 1.0.1 =
+* Correção de especificidade CSS nos estilos de banner
+* Estilos Elegante, Moderno e Compacto agora são exibidos corretamente
+
 = 1.0.0 =
 * Versão inicial
 * Shortcode [liturgical_calendar] com atributos date e show
@@ -155,6 +159,9 @@ Sim! O plugin inclui CSS básico com classes bem definidas. Você pode sobrescre
 * CSS básico responsivo
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Correção de estilos CSS dos banners. Atualize para ver os estilos Elegante, Moderno e Compacto corretamente.
 
 = 1.0.0 =
 Versão inicial do plugin.
