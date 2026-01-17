@@ -24,7 +24,7 @@ Plugin WordPress para exibir informações do calendário litúrgico anglicano u
 
 ### Via Upload (Recomendado)
 
-1. Baixe o arquivo `estevao-liturgical-calendar.zip` da [página de releases](https://github.com/douglas/estevao-liturgical-wordpress-plugin/releases)
+1. Baixe o arquivo `estevao-liturgical-calendar.zip` da [página de releases](https://github.com/dodopok/estevao-liturgical-wordpress-plugin/releases)
 2. No WordPress, vá em **Plugins > Adicionar Novo > Fazer upload do plugin**
 3. Selecione o arquivo zip e clique em **Instalar agora**
 4. Ative o plugin
