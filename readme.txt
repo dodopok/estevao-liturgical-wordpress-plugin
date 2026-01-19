@@ -4,7 +4,7 @@ Tags: liturgical, calendar, anglican, church, liturgy, readings
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -142,6 +142,9 @@ Sim! O plugin inclui CSS básico com classes bem definidas. Você pode sobrescre
 3. Uso com Elementor
 
 == Changelog ==
+
+= 1.0.2 =
+* Melhorias no código dos shortcodes
 
 = 1.0.1 =
 * Correção de especificidade CSS nos estilos de banner
