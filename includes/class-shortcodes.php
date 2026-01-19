@@ -418,9 +418,6 @@ class Estevao_Liturgical_Shortcodes {
 
         // Determine the color (celebration color takes precedence if exists)
         $color = $data['liturgical_color'] ?? 'verde';
-        if (!empty($data['celebration']['color'])) {
-            $color = $data['celebration']['color'];
-        }
 
         $style_class = 'liturgical-banner-style-' . sanitize_html_class($style);
         $color_class = 'liturgical-banner-' . sanitize_html_class($color);
