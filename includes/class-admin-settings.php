@@ -296,18 +296,14 @@ class Estevao_Liturgical_Admin {
         $style_class = 'liturgical-banner-style-' . sanitize_html_class($style);
         $color_class = 'liturgical-banner-' . sanitize_html_class($color);
 
-        // Build title
-        $title_parts = array();
-        if (!empty($data['celebration']['name'])) {
-            $title_parts[] = $data['celebration']['name'];
-        }
-        if (!empty($data['liturgical_season'])) {
-            $title_parts[] = $data['liturgical_season'];
-        }
-        $title = implode(' - ', $title_parts);
-        if (empty($title) && !empty($data['sunday_name'])) {
+        // Build title: sunday_name is always primary; fall back to liturgical_season
+        $title = '';
+        if (!empty($data['sunday_name'])) {
             $title = $data['sunday_name'];
+        } elseif (!empty($data['liturgical_season'])) {
+            $title = $data['liturgical_season'];
         }
+        $celebration_name = !empty($data['celebration']['name']) ? $data['celebration']['name'] : '';
 
         // Build readings
         $readings_refs = array();
@@ -334,6 +330,10 @@ class Estevao_Liturgical_Admin {
 
             <?php if (in_array('title', $elements) && !empty($title)): ?>
                 <div class="liturgical-banner-title"><?php echo esc_html($title); ?></div>
+            <?php endif; ?>
+
+            <?php if (in_array('title', $elements) && !empty($celebration_name)): ?>
+                <div class="liturgical-banner-celebration"><?php echo esc_html($celebration_name); ?></div>
             <?php endif; ?>
 
             <?php if (in_array('year', $elements) && !empty($data['liturgical_year'])): ?>

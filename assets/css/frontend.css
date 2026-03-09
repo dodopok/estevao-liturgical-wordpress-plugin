@@ -1,191 +1,276 @@
 /**
  * Estevao Liturgical Calendar - Frontend Styles
  *
- * These are minimal, customizable styles. Override in your theme as needed.
+ * Optional Google Fonts (add to your theme's <head> or via a plugin):
+ * @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;500;600&display=swap');
+ *
+ * Without them, Georgia / Times New Roman serve as graceful fallbacks.
  */
 
-/* Main container */
+/* ============================================================
+   CSS Custom Properties — Liturgical Color System
+   ============================================================ */
+
+.estevao-liturgical-calendar,
+.estevao-liturgical-banner {
+    --lc-accent:       #228B22;
+    --lc-accent-soft:  rgba(34, 139, 34, 0.12);
+    --lc-accent-mid:   rgba(34, 139, 34, 0.30);
+}
+
+.liturgical-color-verde,
+.liturgical-banner-verde    { --lc-accent: #1a6b1a;  --lc-accent-soft: rgba(34,139,34,0.10);   --lc-accent-mid: rgba(34,139,34,0.28); }
+.liturgical-color-branco,
+.liturgical-banner-branco   { --lc-accent: #8B7355;  --lc-accent-soft: rgba(139,115,85,0.10);  --lc-accent-mid: rgba(139,115,85,0.28); }
+.liturgical-color-roxo,
+.liturgical-banner-roxo     { --lc-accent: #5B2D8E;  --lc-accent-soft: rgba(91,45,142,0.10);   --lc-accent-mid: rgba(91,45,142,0.28); }
+.liturgical-color-vermelho,
+.liturgical-banner-vermelho { --lc-accent: #9B1C1C;  --lc-accent-soft: rgba(155,28,28,0.10);   --lc-accent-mid: rgba(155,28,28,0.28); }
+.liturgical-color-rosa,
+.liturgical-banner-rosa     { --lc-accent: #B84878;  --lc-accent-soft: rgba(184,72,120,0.10);  --lc-accent-mid: rgba(184,72,120,0.28); }
+.liturgical-color-azul,
+.liturgical-banner-azul     { --lc-accent: #2B4FA8;  --lc-accent-soft: rgba(43,79,168,0.10);   --lc-accent-mid: rgba(43,79,168,0.28); }
+.liturgical-color-preto,
+.liturgical-banner-preto    { --lc-accent: #1a1a1a;  --lc-accent-soft: rgba(26,26,26,0.08);    --lc-accent-mid: rgba(26,26,26,0.22); }
+
+/* ============================================================
+   Calendar Container
+   ============================================================ */
+
 .estevao-liturgical-calendar {
-    font-family: inherit;
-    line-height: 1.6;
-    margin: 1em 0;
-    padding: 1em;
-    border-radius: 4px;
-    background: #fafafa;
-    border-left: 4px solid #ccc;
+    font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
+    line-height: 1.7;
+    margin: 1.5em 0;
+    padding: 1.75em 2em;
+    border-radius: 2px;
+    background: #faf8f4;
+    border-left: 3px solid var(--lc-accent);
+    box-shadow:
+        0 1px 3px rgba(0,0,0,0.06),
+        0 0 0 1px rgba(0,0,0,0.04);
+    position: relative;
 }
 
-/* Color-based border */
-.estevao-liturgical-calendar.liturgical-color-verde {
-    border-left-color: #228B22;
+.estevao-liturgical-calendar::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, var(--lc-accent) 0%, transparent 75%);
+    opacity: 0.35;
 }
 
-.estevao-liturgical-calendar.liturgical-color-branco {
-    border-left-color: #f0e68c;
-    background: #fffef5;
-}
+/* ============================================================
+   Date
+   ============================================================ */
 
-.estevao-liturgical-calendar.liturgical-color-roxo {
-    border-left-color: #663399;
-}
-
-.estevao-liturgical-calendar.liturgical-color-vermelho {
-    border-left-color: #b22222;
-}
-
-.estevao-liturgical-calendar.liturgical-color-rosa {
-    border-left-color: #ff69b4;
-}
-
-.estevao-liturgical-calendar.liturgical-color-azul {
-    border-left-color: #4169e1;
-}
-
-.estevao-liturgical-calendar.liturgical-color-preto {
-    border-left-color: #333;
-}
-
-/* Date */
 .liturgical-date {
-    font-size: 0.9em;
-    color: #666;
-    margin-bottom: 0.5em;
+    font-family: 'Cinzel', 'Times New Roman', serif;
+    font-size: 0.7em;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--lc-accent);
+    margin-bottom: 0.55em;
+    opacity: 0.9;
 }
 
-/* Day name */
+/* ============================================================
+   Day Name — PRIMARY heading + celebration badge
+   ============================================================ */
+
 .liturgical-day-name {
-    font-size: 1.3em;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 0.5em;
+    margin-bottom: 1.1em;
 }
 
-/* Labels and values */
+.liturgical-day-name-text {
+    display: block;
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 1.55em;
+    font-weight: 600;
+    line-height: 1.25;
+    color: #1a1a1a;
+    letter-spacing: 0.01em;
+}
+
+/* Celebration: always subordinate — shown as a small pill label */
+.liturgical-celebration-label {
+    display: inline-block;
+    margin-top: 0.45em;
+    padding: 0.18em 0.75em;
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 0.78em;
+    font-style: italic;
+    color: var(--lc-accent);
+    border: 1px solid var(--lc-accent-mid);
+    border-radius: 2px;
+    background: var(--lc-accent-soft);
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+}
+
+/* ============================================================
+   Labels & Values
+   ============================================================ */
+
 .liturgical-label {
+    font-family: 'Cinzel', 'Times New Roman', serif;
+    font-size: 0.7em;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #888;
     font-weight: 500;
-    color: #555;
 }
 
 .liturgical-value {
-    color: #333;
+    color: #2a2a2a;
+    font-size: 0.96em;
 }
 
-/* Season, color, year */
+/* ============================================================
+   Season / Color / Year rows
+   ============================================================ */
+
 .liturgical-season,
 .liturgical-color,
 .liturgical-year {
-    margin: 0.3em 0;
-    font-size: 0.95em;
+    margin: 0.35em 0;
+    font-size: 0.92em;
+    display: flex;
+    align-items: center;
+    gap: 0.55em;
 }
 
-/* Color indicator */
+/* ============================================================
+   Color Indicator dot
+   ============================================================ */
+
 .liturgical-color-indicator {
     display: inline-block;
-    width: 12px;
-    height: 12px;
+    width: 11px;
+    height: 11px;
     border-radius: 50%;
-    margin-right: 6px;
+    flex-shrink: 0;
     vertical-align: middle;
-    border: 1px solid rgba(0,0,0,0.1);
+    border: 2px solid rgba(255,255,255,0.85);
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.18);
 }
 
-.liturgical-color-indicator[data-color="verde"] {
-    background-color: #228B22;
-}
+.liturgical-color-indicator[data-color="verde"]     { background: #228B22; }
+.liturgical-color-indicator[data-color="branco"]    { background: #d4c9a8; }
+.liturgical-color-indicator[data-color="roxo"]      { background: #663399; }
+.liturgical-color-indicator[data-color="vermelho"]  { background: #b22222; }
+.liturgical-color-indicator[data-color="rosa"]      { background: #e070a0; }
+.liturgical-color-indicator[data-color="azul"]      { background: #4169e1; }
+.liturgical-color-indicator[data-color="preto"]     { background: #1a1a1a; }
 
-.liturgical-color-indicator[data-color="branco"] {
-    background-color: #f0e68c;
-}
+/* ============================================================
+   Collects
+   ============================================================ */
 
-.liturgical-color-indicator[data-color="roxo"] {
-    background-color: #663399;
-}
-
-.liturgical-color-indicator[data-color="vermelho"] {
-    background-color: #b22222;
-}
-
-.liturgical-color-indicator[data-color="rosa"] {
-    background-color: #ff69b4;
-}
-
-.liturgical-color-indicator[data-color="azul"] {
-    background-color: #4169e1;
-}
-
-.liturgical-color-indicator[data-color="preto"] {
-    background-color: #333;
-}
-
-/* Collects */
 .liturgical-collects {
-    margin-top: 1em;
-    padding-top: 1em;
-    border-top: 1px solid #e0e0e0;
+    margin-top: 1.5em;
+    padding-top: 1.25em;
+    border-top: 1px solid var(--lc-accent-mid);
 }
 
 .liturgical-collect {
-    margin-bottom: 1em;
+    margin-bottom: 1.6em;
 }
 
 .liturgical-collect-title {
-    font-size: 1em;
-    font-weight: 600;
-    margin: 0 0 0.5em 0;
-    color: #333;
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 0.82em;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--lc-accent);
+    margin: 0 0 0.65em 0;
+    padding-bottom: 0.35em;
+    border-bottom: 1px solid var(--lc-accent-soft);
 }
 
 .liturgical-collect-subtitle {
-    font-weight: normal;
+    font-weight: 400;
     font-style: italic;
-    color: #666;
+    text-transform: none;
+    letter-spacing: 0;
+    color: #999;
+    font-size: 0.9em;
+    font-family: 'EB Garamond', Georgia, serif;
 }
 
 .liturgical-collect-text {
+    font-family: 'EB Garamond', Georgia, serif;
     font-style: italic;
-    color: #444;
-    padding-left: 1em;
-    border-left: 2px solid #ddd;
+    font-size: 1.06em;
+    color: #363636;
+    line-height: 1.9;
+    padding: 0.8em 1.3em;
+    border-left: 2px solid var(--lc-accent);
+    background: rgba(255,255,255,0.55);
+    margin: 0;
 }
 
-/* Readings */
+/* ============================================================
+   Readings
+   ============================================================ */
+
 .liturgical-readings {
-    margin-top: 1em;
-    padding-top: 1em;
-    border-top: 1px solid #e0e0e0;
+    margin-top: 1.5em;
+    padding-top: 1.25em;
+    border-top: 1px solid var(--lc-accent-mid);
 }
 
 .liturgical-readings-title {
-    font-size: 1em;
-    font-weight: 600;
-    margin: 0 0 0.75em 0;
-    color: #333;
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 0.82em;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--lc-accent);
+    margin: 0 0 1em 0;
 }
 
 .liturgical-reading {
-    margin: 0.5em 0;
-    padding: 0.5em;
-    background: rgba(255,255,255,0.5);
-    border-radius: 3px;
+    margin: 0.55em 0;
+    padding: 0.6em 0.9em;
+    background: rgba(255,255,255,0.55);
+    border-radius: 2px;
+    border-left: 2px solid var(--lc-accent-mid);
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.2em 0.55em;
 }
 
 .liturgical-reading-label {
-    font-weight: 500;
-    color: #555;
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 0.7em;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #999;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .liturgical-reading-reference {
+    font-family: 'EB Garamond', Georgia, serif;
     font-weight: 600;
-    color: #333;
+    font-size: 1.02em;
+    color: #1a1a1a;
 }
 
 .liturgical-reading-text {
     margin-top: 0.75em;
-    padding: 0.75em;
+    padding: 0.9em 1.2em;
     background: #fff;
-    border-radius: 3px;
-    font-size: 0.95em;
-    line-height: 1.7;
+    border-radius: 2px;
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 1.02em;
+    line-height: 1.9;
+    color: #333;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .liturgical-verse {
@@ -193,352 +278,351 @@
 }
 
 .liturgical-verse-number {
-    font-size: 0.75em;
-    color: #888;
+    font-size: 0.65em;
+    color: var(--lc-accent);
     font-weight: 600;
-    margin-right: 2px;
+    margin-right: 1px;
+    vertical-align: super;
+    font-family: 'Cinzel', Georgia, serif;
+    opacity: 0.75;
 }
 
-/* Celebration */
+/* ============================================================
+   Celebration — standalone field block
+   ============================================================ */
+
 .liturgical-celebration {
-    margin-top: 1em;
-    padding: 0.75em;
-    background: rgba(255,255,255,0.7);
-    border-radius: 4px;
-    border: 1px solid #e0e0e0;
+    margin-top: 1.25em;
+    padding: 1em 1.25em;
+    background: var(--lc-accent-soft);
+    border-radius: 2px;
+    border: 1px solid var(--lc-accent-mid);
 }
 
 .liturgical-celebration-name {
-    font-weight: 600;
-    font-size: 1.05em;
-    color: #333;
+    font-family: 'Cinzel', Georgia, serif;
+    font-weight: 500;
+    font-size: 0.9em;
+    letter-spacing: 0.06em;
+    color: var(--lc-accent);
+    margin-bottom: 0.3em;
 }
 
 .liturgical-celebration-description {
-    font-size: 0.9em;
-    color: #666;
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 0.92em;
+    color: #555;
     font-style: italic;
-    margin-top: 0.25em;
+    line-height: 1.65;
 }
 
 .liturgical-celebration-color {
     margin-top: 0.5em;
-    font-size: 0.9em;
+    font-size: 0.85em;
+    display: flex;
+    align-items: center;
+    gap: 0.45em;
 }
 
-/* Error message */
+/* ============================================================
+   Error
+   ============================================================ */
+
 .estevao-liturgical-error {
-    padding: 1em;
-    background: #fef0f0;
-    border: 1px solid #f5c6cb;
-    border-radius: 4px;
-    color: #721c24;
+    padding: 1em 1.25em;
+    background: #fef2f2;
+    border: 1px solid rgba(185,28,28,0.25);
+    border-left: 3px solid #b91c1c;
+    border-radius: 2px;
+    color: #7f1d1d;
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 0.95em;
 }
 
-/* ==========================================================================
-   Liturgical Banner
-   ========================================================================== */
+/* ============================================================
+   Liturgical Banner — Base
+   ============================================================ */
 
 .estevao-liturgical-banner {
+    --banner-bg:     #1a6b1a;
+    --banner-text:   #ffffff;
+    --banner-ghost:  rgba(255, 255, 255, 0.22);
     text-align: center;
-    padding: 2em 1.5em;
-    margin: 1em 0;
-    border-radius: 6px;
-    color: #fff;
-    background: #228B22;
-}
-
-/* Banner title (season/celebration) */
-.liturgical-banner-title {
-    font-size: 1.8em;
-    font-weight: 700;
-    margin-bottom: 0.3em;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-}
-
-/* Liturgical year */
-.liturgical-banner-year {
-    font-size: 1.1em;
-    font-weight: 500;
-    opacity: 0.9;
-    margin-bottom: 0.8em;
-}
-
-/* Readings references */
-.liturgical-banner-readings {
-    font-size: 0.95em;
-    opacity: 0.85;
-    line-height: 1.6;
-}
-
-/* Banner color variations */
-.estevao-liturgical-banner.liturgical-banner-verde {
-    background: linear-gradient(135deg, #228B22 0%, #2E8B57 100%);
-}
-
-.estevao-liturgical-banner.liturgical-banner-branco {
-    background: linear-gradient(135deg, #f5f5dc 0%, #fffaf0 100%);
-    color: #333;
-}
-
-.estevao-liturgical-banner.liturgical-banner-branco .liturgical-banner-title {
-    text-shadow: none;
-    color: #444;
-}
-
-.estevao-liturgical-banner.liturgical-banner-branco .liturgical-banner-year,
-.estevao-liturgical-banner.liturgical-banner-branco .liturgical-banner-readings {
-    color: #555;
-}
-
-.estevao-liturgical-banner.liturgical-banner-roxo {
-    background: linear-gradient(135deg, #663399 0%, #4B0082 100%);
-}
-
-.estevao-liturgical-banner.liturgical-banner-vermelho {
-    background: linear-gradient(135deg, #b22222 0%, #8B0000 100%);
-}
-
-.estevao-liturgical-banner.liturgical-banner-rosa {
-    background: linear-gradient(135deg, #ff69b4 0%, #db7093 100%);
-}
-
-.estevao-liturgical-banner.liturgical-banner-azul {
-    background: linear-gradient(135deg, #4169e1 0%, #1e40af 100%);
-}
-
-.estevao-liturgical-banner.liturgical-banner-preto {
-    background: linear-gradient(135deg, #333 0%, #1a1a1a 100%);
-}
-
-/* Banner date */
-.liturgical-banner-date {
-    font-size: 0.85em;
-    opacity: 0.8;
-    margin-bottom: 0.5em;
-    letter-spacing: 0.5px;
-}
-
-/* ==========================================================================
-   Banner Styles
-   ========================================================================== */
-
-/* Style: Simple (default) - clean and minimal */
-.estevao-liturgical-banner.liturgical-banner-style-simple {
-    /* Uses base banner styles - no additional styling */
-    border-radius: 6px;
-}
-
-/* Style: Elegant/Classic - formal liturgical look */
-.estevao-liturgical-banner.liturgical-banner-style-elegant {
     padding: 2.5em 2em;
-    border: 3px solid rgba(255,215,0,0.4);
-    box-shadow: inset 0 0 30px rgba(0,0,0,0.2);
+    margin: 1em 0;
+    border-radius: 3px;
+    color: var(--banner-text);
+    background: var(--banner-bg);
     position: relative;
+    overflow: hidden;
 }
 
-.estevao-liturgical-banner.liturgical-banner-style-elegant::before,
-.estevao-liturgical-banner.liturgical-banner-style-elegant::after {
+/* Banner color definitions */
+.liturgical-banner-verde    { --banner-bg: linear-gradient(155deg, #1a6b1a 0%, #2d8b57 100%); }
+.liturgical-banner-branco   { --banner-bg: linear-gradient(155deg, #ece7d8 0%, #faf7ef 100%); --banner-text: #3a2e1e; --banner-ghost: rgba(139,115,85,0.20); }
+.liturgical-banner-roxo     { --banner-bg: linear-gradient(155deg, #3b006e 0%, #6B3FA0 100%); }
+.liturgical-banner-vermelho { --banner-bg: linear-gradient(155deg, #7a0000 0%, #c0392b 100%); }
+.liturgical-banner-rosa     { --banner-bg: linear-gradient(155deg, #9c2055 0%, #e070a0 100%); }
+.liturgical-banner-azul     { --banner-bg: linear-gradient(155deg, #13255e 0%, #3b5fd4 100%); }
+.liturgical-banner-preto    { --banner-bg: linear-gradient(155deg, #0d0d0d 0%, #2a2a2a 100%); }
+
+.estevao-liturgical-banner { background: var(--banner-bg); }
+
+.liturgical-banner-date {
+    font-family: 'Cinzel', 'Times New Roman', serif;
+    font-size: 0.7em;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    opacity: 0.72;
+    margin-bottom: 0.6em;
+}
+
+.liturgical-banner-title {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 2em;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1.22;
+    margin-bottom: 0.3em;
+}
+
+/* Celebration subtitle in banner — always subordinate to the title */
+.liturgical-banner-celebration {
+    display: inline-block;
+    margin-bottom: 0.6em;
+    padding: 0.18em 0.85em;
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 0.82em;
+    font-style: italic;
+    opacity: 0.9;
+    border: 1px solid var(--banner-ghost);
+    border-radius: 2px;
+    letter-spacing: 0.02em;
+}
+
+.liturgical-banner-year {
+    font-size: 0.94em;
+    font-family: 'EB Garamond', Georgia, serif;
+    font-style: italic;
+    opacity: 0.88;
+    margin-bottom: 0.7em;
+}
+
+.liturgical-banner-readings {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 0.9em;
+    opacity: 0.8;
+    line-height: 1.7;
+}
+
+/* ============================================================
+   Banner — Style: Simple
+   ============================================================ */
+
+.liturgical-banner-style-simple {
+    border-radius: 4px;
+}
+
+/* ============================================================
+   Banner — Style: Elegant
+   Inspired by illuminated manuscript borders
+   ============================================================ */
+
+.liturgical-banner-style-elegant {
+    padding: 3.25em 2.75em;
+    border-radius: 1px;
+}
+
+.liturgical-banner-style-elegant::before,
+.liturgical-banner-style-elegant::after {
     content: '';
     position: absolute;
-    width: 60px;
-    height: 60px;
-    border: 2px solid rgba(255,215,0,0.3);
+    pointer-events: none;
 }
 
-.estevao-liturgical-banner.liturgical-banner-style-elegant::before {
-    top: 10px;
-    left: 10px;
-    border-right: none;
-    border-bottom: none;
+.liturgical-banner-style-elegant::before {
+    top: 10px; left: 10px; right: 10px; bottom: 10px;
+    border: 1px solid var(--banner-ghost);
 }
 
-.estevao-liturgical-banner.liturgical-banner-style-elegant::after {
-    bottom: 10px;
-    right: 10px;
-    border-left: none;
-    border-top: none;
+.liturgical-banner-style-elegant::after {
+    top: 16px; left: 16px; right: 16px; bottom: 16px;
+    border: 1px solid rgba(255,255,255,0.09);
 }
 
-.estevao-liturgical-banner.liturgical-banner-style-elegant .liturgical-banner-title {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 2.2em;
+.liturgical-banner-style-elegant .liturgical-banner-title {
+    font-size: 2.5em;
     font-weight: 400;
-    letter-spacing: 2px;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    margin-bottom: 0.4em;
 }
 
-.estevao-liturgical-banner.liturgical-banner-style-elegant .liturgical-banner-year {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-style: italic;
-    letter-spacing: 1px;
+.liturgical-banner-style-elegant .liturgical-banner-year {
+    letter-spacing: 0.06em;
+    font-size: 1.05em;
 }
 
-.estevao-liturgical-banner.liturgical-banner-style-elegant .liturgical-banner-readings {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 0.9em;
-    letter-spacing: 0.5px;
+.liturgical-banner-style-elegant .liturgical-banner-readings {
+    font-size: 0.86em;
+    letter-spacing: 0.04em;
 }
 
-.estevao-liturgical-banner.liturgical-banner-style-elegant .liturgical-banner-date {
-    font-family: Georgia, 'Times New Roman', serif;
+.liturgical-banner-style-elegant .liturgical-banner-date {
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 0.22em;
 }
 
-/* Elegant - branco needs dark borders */
-.estevao-liturgical-banner.liturgical-banner-style-elegant.liturgical-banner-branco {
-    border-color: rgba(139,90,43,0.3);
+.liturgical-banner-style-elegant.liturgical-banner-branco::before {
+    border-color: rgba(139,115,85,0.3);
+}
+.liturgical-banner-style-elegant.liturgical-banner-branco::after {
+    border-color: rgba(139,115,85,0.14);
 }
 
-.estevao-liturgical-banner.liturgical-banner-style-elegant.liturgical-banner-branco::before,
-.estevao-liturgical-banner.liturgical-banner-style-elegant.liturgical-banner-branco::after {
-    border-color: rgba(139,90,43,0.2);
+/* ============================================================
+   Banner — Style: Modern (glassmorphism)
+   ============================================================ */
+
+.liturgical-banner-style-modern {
+    border-radius: 14px;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.16);
+    box-shadow:
+        0 16px 48px rgba(0,0,0,0.20),
+        0 2px 8px rgba(0,0,0,0.10);
+    padding: 2.25em 2em;
 }
 
-/* Style: Modern/Glass - glassmorphism effect */
-.estevao-liturgical-banner.liturgical-banner-style-modern {
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-    padding: 2em;
-}
-
-.estevao-liturgical-banner.liturgical-banner-style-modern .liturgical-banner-title {
-    font-size: 1.6em;
+.liturgical-banner-style-modern .liturgical-banner-title {
+    font-size: 1.75em;
     font-weight: 600;
+    letter-spacing: -0.01em;
     text-shadow: none;
-    letter-spacing: -0.5px;
 }
 
-.estevao-liturgical-banner.liturgical-banner-style-modern .liturgical-banner-year {
+.liturgical-banner-style-modern .liturgical-banner-year {
     display: inline-block;
-    background: rgba(255,255,255,0.2);
-    padding: 0.3em 1em;
-    border-radius: 20px;
-    font-size: 0.9em;
-    margin-bottom: 1em;
+    background: var(--banner-ghost);
+    padding: 0.22em 1.1em;
+    border-radius: 100px;
+    font-size: 0.82em;
+    font-style: normal;
+    font-family: 'Cinzel', Georgia, serif;
+    letter-spacing: 0.07em;
+    margin-bottom: 0.9em;
+    opacity: 1;
 }
 
-.estevao-liturgical-banner.liturgical-banner-style-modern .liturgical-banner-readings {
-    font-size: 0.85em;
-    opacity: 0.9;
+.liturgical-banner-style-modern .liturgical-banner-readings {
+    font-size: 0.82em;
 }
 
-.estevao-liturgical-banner.liturgical-banner-style-modern .liturgical-banner-date {
-    font-size: 0.8em;
-    opacity: 0.7;
+/* Modern semi-transparent backgrounds */
+.liturgical-banner-style-modern.liturgical-banner-verde    { background: rgba(26,107,26,0.88);   }
+.liturgical-banner-style-modern.liturgical-banner-roxo     { background: rgba(59,0,110,0.88);    }
+.liturgical-banner-style-modern.liturgical-banner-vermelho { background: rgba(122,0,0,0.88);     }
+.liturgical-banner-style-modern.liturgical-banner-rosa     { background: rgba(156,32,85,0.88);   }
+.liturgical-banner-style-modern.liturgical-banner-azul     { background: rgba(19,37,94,0.88);    }
+.liturgical-banner-style-modern.liturgical-banner-preto    { background: rgba(13,13,13,0.92);    }
+.liturgical-banner-style-modern.liturgical-banner-branco   { background: rgba(236,231,216,0.92); border-color: rgba(139,115,85,0.18); }
+
+.liturgical-banner-style-modern.liturgical-banner-branco .liturgical-banner-year {
+    background: rgba(139,115,85,0.18);
 }
 
-/* Modern color overrides - use high specificity to override base gradients */
-.estevao-liturgical-banner.liturgical-banner-style-modern.liturgical-banner-verde {
-    background: rgba(34,139,34,0.85);
-}
+/* ============================================================
+   Banner — Style: Compact (horizontal strip)
+   ============================================================ */
 
-.estevao-liturgical-banner.liturgical-banner-style-modern.liturgical-banner-roxo {
-    background: rgba(102,51,153,0.85);
-}
-
-.estevao-liturgical-banner.liturgical-banner-style-modern.liturgical-banner-vermelho {
-    background: rgba(178,34,34,0.85);
-}
-
-.estevao-liturgical-banner.liturgical-banner-style-modern.liturgical-banner-rosa {
-    background: rgba(255,105,180,0.85);
-}
-
-.estevao-liturgical-banner.liturgical-banner-style-modern.liturgical-banner-azul {
-    background: rgba(65,105,225,0.85);
-}
-
-.estevao-liturgical-banner.liturgical-banner-style-modern.liturgical-banner-preto {
-    background: rgba(51,51,51,0.9);
-}
-
-.estevao-liturgical-banner.liturgical-banner-style-modern.liturgical-banner-branco {
-    background: rgba(255,255,255,0.9);
-    border-color: rgba(0,0,0,0.1);
-}
-
-.estevao-liturgical-banner.liturgical-banner-style-modern.liturgical-banner-branco .liturgical-banner-year {
-    background: rgba(0,0,0,0.1);
-}
-
-/* Style: Compact - minimal bar */
-.estevao-liturgical-banner.liturgical-banner-style-compact {
-    padding: 0.8em 1.5em;
-    border-radius: 4px;
+.liturgical-banner-style-compact {
+    padding: 0.85em 1.75em;
+    border-radius: 3px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 0.5em 1.5em;
+    gap: 0.15em 1.1em;
 }
 
-.estevao-liturgical-banner.liturgical-banner-style-compact .liturgical-banner-date {
-    font-size: 0.85em;
+.liturgical-banner-style-compact .liturgical-banner-date {
+    font-size: 0.75em;
     margin: 0;
-    opacity: 0.9;
+    opacity: 0.75;
+    order: 0;
 }
 
-.estevao-liturgical-banner.liturgical-banner-style-compact .liturgical-banner-title {
-    font-size: 1.1em;
+.liturgical-banner-style-compact .liturgical-banner-title {
+    font-size: 1.05em;
     font-weight: 600;
+    letter-spacing: 0.02em;
     margin: 0;
-    text-shadow: none;
+    order: 1;
 }
 
-.estevao-liturgical-banner.liturgical-banner-style-compact .liturgical-banner-year {
-    font-size: 0.9em;
+.liturgical-banner-style-compact .liturgical-banner-celebration {
+    font-size: 0.78em;
+    padding: 0.1em 0.5em;
     margin: 0;
-    opacity: 0.9;
+    order: 2;
 }
 
-.estevao-liturgical-banner.liturgical-banner-style-compact .liturgical-banner-year::before {
-    content: '|';
-    margin-right: 0.5em;
+.liturgical-banner-style-compact .liturgical-banner-year {
+    font-size: 0.82em;
+    font-style: normal;
+    margin: 0;
+    opacity: 0.8;
+    order: 2;
+}
+
+.liturgical-banner-style-compact .liturgical-banner-year::before {
+    content: '·';
+    margin-right: 0.9em;
     opacity: 0.5;
 }
 
-.estevao-liturgical-banner.liturgical-banner-style-compact .liturgical-banner-readings {
-    font-size: 0.85em;
+.liturgical-banner-style-compact .liturgical-banner-readings {
+    font-size: 0.78em;
     margin: 0;
-    opacity: 0.85;
+    opacity: 0.78;
     flex-basis: 100%;
-    margin-top: 0.3em;
+    text-align: center;
+    padding-top: 0.4em;
+    border-top: 1px solid var(--banner-ghost);
+    order: 3;
+    margin-top: 0.1em;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 640px) {
     .estevao-liturgical-calendar {
-        padding: 0.75em;
+        padding: 1.25em 1.25em;
     }
 
-    .liturgical-day-name {
-        font-size: 1.1em;
+    .liturgical-day-name-text {
+        font-size: 1.25em;
     }
 
-    .liturgical-reading-text {
-        font-size: 0.9em;
-    }
-
-    /* Banner responsive */
     .estevao-liturgical-banner {
-        padding: 1.5em 1em;
+        padding: 1.75em 1.25em;
     }
 
     .liturgical-banner-title {
-        font-size: 1.4em;
+        font-size: 1.5em;
     }
 
-    .liturgical-banner-year {
-        font-size: 1em;
+    .liturgical-banner-style-elegant .liturgical-banner-title {
+        font-size: 1.7em;
     }
 
-    .liturgical-banner-readings {
-        font-size: 0.85em;
+    .liturgical-banner-style-compact {
+        padding: 0.75em 1.25em;
+    }
+
+    .liturgical-banner-style-compact .liturgical-banner-title {
+        font-size: 0.98em;
     }
 }

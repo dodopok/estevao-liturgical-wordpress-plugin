@@ -424,20 +424,16 @@ class Estevao_Liturgical_Shortcodes {
         $style_class = 'liturgical-banner-style-' . sanitize_html_class($style);
         $color_class = 'liturgical-banner-' . sanitize_html_class($color);
 
-        // Build the title: celebration name + season, or just season
-        $title_parts = array();
-        if (!empty($data['celebration']['name'])) {
-            $title_parts[] = $data['celebration']['name'];
-        }
-        if (!empty($data['liturgical_season'])) {
-            $title_parts[] = $data['liturgical_season'];
-        }
-        $title = implode(' - ', $title_parts);
-
-        // Fallback to sunday_name if no title
-        if (empty($title) && !empty($data['sunday_name'])) {
+        // Build the title: sunday_name is always primary; fall back to liturgical_season
+        $title = '';
+        if (!empty($data['sunday_name'])) {
             $title = $data['sunday_name'];
+        } elseif (!empty($data['liturgical_season'])) {
+            $title = $data['liturgical_season'];
         }
+
+        // Celebration is always secondary (shown as subtitle, never replacing the title)
+        $celebration_name = !empty($data['celebration']['name']) ? $data['celebration']['name'] : '';
 
         // Build readings references
         $readings_refs = array();
@@ -464,9 +460,12 @@ class Estevao_Liturgical_Shortcodes {
             $output .= '<div class="liturgical-banner-date">' . esc_html($data['date']) . '</div>';
         }
 
-        // Title (season/celebration)
+        // Title (sunday_name or season) + celebration subtitle
         if (in_array('title', $elements) && !empty($title)) {
             $output .= '<div class="liturgical-banner-title">' . esc_html($title) . '</div>';
+        }
+        if (in_array('title', $elements) && !empty($celebration_name)) {
+            $output .= '<div class="liturgical-banner-celebration">' . esc_html($celebration_name) . '</div>';
         }
 
         // Liturgical year
