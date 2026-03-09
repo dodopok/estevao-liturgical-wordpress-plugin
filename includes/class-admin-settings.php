@@ -357,21 +357,28 @@ class Estevao_Liturgical_Admin {
      */
     public function render_api_key_field() {
         $value = get_option('estevao_liturgical_api_key', '');
-        echo '<input type="password" name="estevao_liturgical_api_key" id="estevao_liturgical_api_key" value="' . esc_attr($value) . '" class="regular-text" autocomplete="new-password" />';
-        echo '<button type="button" class="button button-small" onclick="var f=document.getElementById(\'estevao_liturgical_api_key\');f.type=f.type===\'password\'?\'text\':\'password\'">' . esc_html__('Mostrar/Ocultar', 'estevao-liturgical-calendar') . '</button>';
-        echo '<p class="description">';
-        printf(
-            /* translators: %s: URL to get API key */
-            wp_kses(
-                __('Chave necessária para acessar a API. Obtenha a sua em <a href="%s" target="_blank" rel="noopener">estevao.caminhoanglicano.com.br</a>.', 'estevao-liturgical-calendar'),
-                array('a' => array('href' => array(), 'target' => array(), 'rel' => array()))
-            ),
-            'https://estevao.caminhoanglicano.com.br/'
-        );
-        echo '</p>';
-        if (empty($value)) {
-            echo '<p class="description" style="color:#d63638;">' . esc_html__('⚠ Sem chave de API, as requisições podem ser bloqueadas ou limitadas.', 'estevao-liturgical-calendar') . '</p>';
-        }
+        ?>
+        <div class="estevao-api-key-field">
+            <input type="password"
+                   name="estevao_liturgical_api_key"
+                   id="estevao_liturgical_api_key"
+                   value="<?php echo esc_attr($value); ?>"
+                   class="regular-text"
+                   autocomplete="new-password" />
+            <button type="button" class="button button-small" id="estevao-toggle-api-key">
+                <?php esc_html_e('Mostrar', 'estevao-liturgical-calendar'); ?>
+            </button>
+        </div>
+        <p class="description">
+            <?php esc_html_e('Chave necessária para acessar a API. Obtenha a sua em', 'estevao-liturgical-calendar'); ?>
+            <a href="https://estevao.caminhoanglicano.com.br/" target="_blank" rel="noopener noreferrer">estevao.caminhoanglicano.com.br</a>.
+        </p>
+        <?php if (empty($value)) : ?>
+            <p class="description estevao-api-key-warning">
+                <?php esc_html_e('⚠ Sem chave de API as requisições serão bloqueadas (erro 401). Configure a chave antes de usar os shortcodes.', 'estevao-liturgical-calendar'); ?>
+            </p>
+        <?php endif; ?>
+        <?php
     }
 
     /**

@@ -17,8 +17,8 @@
      */
     function bindEvents() {
         // Preview triggers (inputs that should update preview)
-        $(document).on('change', '.preview-trigger', debounce(loadPreview, 300));
-        $(document).on('change', 'input[name="preview_date"]', loadPreview);
+        $(document).on('change', '.preview-trigger', debounce(loadPreview, 400));
+        $(document).on('change', 'input[name="preview_date"]', debounce(loadPreview, 400));
 
         // Style selector visual feedback
         $(document).on('change', 'input[name="estevao_liturgical_banner_style"]', function() {
@@ -30,17 +30,30 @@
         $('#clear-cache-btn').on('click', clearCache);
 
         // Copy shortcode button
-        $('.copy-shortcode').on('click', copyShortcode);
+        $(document).on('click', '.copy-shortcode', copyShortcode);
+
+        // Toggle API key visibility
+        $(document).on('click', '#estevao-toggle-api-key', function() {
+            var $input = $('#estevao_liturgical_api_key');
+            var isPassword = $input.attr('type') === 'password';
+            $input.attr('type', isPassword ? 'text' : 'password');
+            $(this).text(isPassword ? 'Ocultar' : 'Mostrar');
+        });
     }
 
     /**
      * Load preview via AJAX
      */
     function loadPreview() {
-        if (isLoading) return;
-
         var $container = $('#banner-preview-container');
         var data = getFormData();
+
+        // If already loading, schedule a reload after current one finishes
+        if (isLoading) {
+            clearTimeout(previewTimeout);
+            previewTimeout = setTimeout(loadPreview, 500);
+            return;
+        }
 
         isLoading = true;
         $container.addClass('loading');

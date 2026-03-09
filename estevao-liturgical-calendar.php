@@ -3,7 +3,7 @@
  * Plugin Name: Estevão Liturgical Calendar
  * Plugin URI: https://github.com/douglas/estevao-liturgical-wordpress-plugin
  * Description: Exibe informações do calendário litúrgico anglicano usando a API Caminho Anglicano. Use o shortcode [liturgical_calendar] para exibir as informações.
- * Version: 2.0.0
+ * Version: 2.0.1
  * Author: Douglas Araujo
  * Author URI: https://caminhoanglicano.com.br
  * License: GPL v2 or later
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Plugin constants
-define('ESTEVAO_LITURGICAL_VERSION', '2.0.0');
+define('ESTEVAO_LITURGICAL_VERSION', '2.0.1');
 define('ESTEVAO_LITURGICAL_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('ESTEVAO_LITURGICAL_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('ESTEVAO_LITURGICAL_PLUGIN_BASENAME', plugin_basename(__FILE__));
@@ -148,8 +148,10 @@ class Estevao_Liturgical_Calendar {
 /**
  * Initialize the plugin
  */
-function estevao_liturgical_calendar() {
-    return Estevao_Liturgical_Calendar::get_instance();
+if (!function_exists('estevao_liturgical_calendar')) {
+    function estevao_liturgical_calendar() {
+        return Estevao_Liturgical_Calendar::get_instance();
+    }
 }
 
 // Start the plugin
