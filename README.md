@@ -39,10 +39,13 @@ Plugin WordPress para exibir informações do calendário litúrgico anglicano u
 
 Após ativar o plugin, vá em **Configurações > Calendário Litúrgico** para:
 
-- Selecionar o **Livro de Oração** (IEAB 2015, LOCb 2008, ACNA 2019, etc.)
-- Selecionar a **Versão da Bíblia** (NVI, ARA, ACF, ESV, etc.)
-- Escolher o **Estilo do Banner** padrão
-- Configurar os **Elementos do Banner** exibidos por padrão
+1. Inserir a **Chave de API (Estevão API)** — obrigatória para que as requisições funcionem. Obtenha a sua em [estevao.caminhoanglicano.com.br](https://estevao.caminhoanglicano.com.br/)
+2. Selecionar o **Livro de Oração** (IEAB 2015, LOCb 2008, ACNA 2019, etc.)
+3. Selecionar a **Versão da Bíblia** (NVI, ARA, ACF, ESV, etc.)
+4. Escolher o **Estilo do Banner** padrão
+5. Configurar os **Elementos do Banner** exibidos por padrão
+
+> **Importante:** sem a chave de API configurada, todas as requisições retornarão erro 401.
 
 ## Uso
 
@@ -64,7 +67,7 @@ Exibe informações detalhadas do calendário litúrgico.
 #### Campos disponíveis para `show`
 
 - `date` - Data formatada
-- `day_name` - Nome do dia (ex: "2º Domingo da Epifania")
+- `day_name` - Nome do dia (ex: "2º Domingo da Epifania"), com celebração/santo exibido como label secundária quando presente
 - `season` - Estação litúrgica
 - `color` - Cor litúrgica
 - `year` - Ano litúrgico (A/B/C)
@@ -147,8 +150,10 @@ O plugin inclui classes CSS bem definidas para customização:
 ### Calendário Principal
 
 ```css
-.estevao-liturgical-calendar { }
-.liturgical-day-name { }
+.estevao-liturgical-calendar { }          /* container (recebe .liturgical-color-{cor}) */
+.liturgical-day-name { }                  /* bloco do nome do dia */
+.liturgical-day-name-text { }             /* texto principal do nome do dia */
+.liturgical-celebration-label { }         /* badge da celebração/santo (subordinado ao day_name) */
 .liturgical-season { }
 .liturgical-color { }
 .liturgical-year { }
@@ -160,7 +165,8 @@ O plugin inclui classes CSS bem definidas para customização:
 
 ```css
 .estevao-liturgical-banner { }
-.liturgical-banner-title { }
+.liturgical-banner-title { }              /* título principal (sunday_name ou estação) */
+.liturgical-banner-celebration { }        /* subtítulo da celebração/santo */
 .liturgical-banner-year { }
 .liturgical-banner-readings { }
 
@@ -221,6 +227,16 @@ Vá em **Configurações > Calendário Litúrgico** e clique no botão **Limpar 
 O impacto é mínimo graças ao cache de 1 hora. A primeira requisição do dia pode demorar alguns segundos, mas as seguintes são instantâneas.
 
 ## Changelog
+
+### 2.0.1
+- Correção de fatal error por duplicidade de diretório de plugin (`function_exists` guard)
+
+### 2.0.0
+- **Autenticação via API Key**: campo seguro no painel admin; chave enviada como header `X-API-Key` em todas as requisições (nunca exposta no shortcode)
+- **Hierarquia day_name/celebration**: `day_name` é sempre o título principal; celebração/santo aparece como badge subordinado, nunca substituindo o nome do dia
+- **Banner corrigido**: `sunday_name` sempre como título principal; celebração como subtítulo separado
+- **Design renovado**: tipografia litúrgica (Cinzel + EB Garamond), sistema de variáveis CSS por cor, thumbnails dos estilos de banner mais descritivos
+- Correção do script de build (`grep -oP` → `sed`) para compatibilidade com macOS
 
 ### 1.0.1
 - Correção de especificidade CSS nos estilos de banner
