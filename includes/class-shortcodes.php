@@ -158,7 +158,12 @@ class Estevao_Liturgical_Shortcodes {
             case 'day_name':
                 $name = $this->get_day_name($data);
                 if (!empty($name)) {
-                    $output = '<div class="liturgical-day-name">' . esc_html($name) . '</div>';
+                    $output = '<div class="liturgical-day-name">';
+                    $output .= '<span class="liturgical-day-name-text">' . esc_html($name) . '</span>';
+                    if (!empty($data['celebration']['name'])) {
+                        $output .= '<span class="liturgical-celebration-label">' . esc_html($data['celebration']['name']) . '</span>';
+                    }
+                    $output .= '</div>';
                 }
                 break;
 
@@ -218,9 +223,6 @@ class Estevao_Liturgical_Shortcodes {
     private function get_day_name($data) {
         if (!empty($data['sunday_name'])) {
             return $data['sunday_name'];
-        }
-        if (!empty($data['celebration']['name'])) {
-            return $data['celebration']['name'];
         }
         if (!empty($data['day_of_week'])) {
             return $data['day_of_week'];

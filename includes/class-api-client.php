@@ -115,11 +115,18 @@ class Estevao_Liturgical_API_Client {
      * @return array|WP_Error Response data or error
      */
     private function make_request($url) {
+        $headers = array(
+            'Accept' => 'application/json',
+        );
+
+        $api_key = get_option('estevao_liturgical_api_key', '');
+        if (!empty($api_key)) {
+            $headers['X-API-Key'] = $api_key;
+        }
+
         $args = array(
             'timeout' => 15,
-            'headers' => array(
-                'Accept' => 'application/json',
-            ),
+            'headers' => $headers,
         );
 
         $response = wp_remote_get($url, $args);
