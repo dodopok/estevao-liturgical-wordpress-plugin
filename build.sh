@@ -6,7 +6,7 @@
 
 # Plugin info
 PLUGIN_SLUG="estevao-liturgical-calendar"
-VERSION=$(grep -oP "Version:\s*\K[0-9.]+" estevao-liturgical-calendar.php)
+VERSION=$(sed -n 's/.*\* Version: \([0-9.]*\).*/\1/p' estevao-liturgical-calendar.php | head -1)
 
 # Colors for output
 RED='\033[0;31m'
