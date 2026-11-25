@@ -261,6 +261,15 @@ Contribuições são bem-vindas! Por favor:
 4. Push para a branch (`git push origin feature/nova-feature`)
 5. Abra um Pull Request
 
+### Pull requests
+
+O título segue Conventional Commits em inglês, como os commits
+(`feat(banner): …`, `fix(shortcode): …`), e a descrição segue o modelo em
+`.github/pull_request_template.md` (por quê, o que muda, riscos, publicação,
+como desfazer, como testar, telas, checklist). O GitHub só preenche o modelo na
+tela web: quem abre PR pela API ou pela linha de comando copia as seções e
+preenche cada uma, com "Nada." onde não se aplica.
+
 ## Licença
 
 Este plugin é licenciado sob a [GPLv2 ou posterior](https://www.gnu.org/licenses/gpl-2.0.html).
